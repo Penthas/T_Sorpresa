@@ -6,10 +6,11 @@ function preload (){
     nave.sprites.current = nave.sprites.dcha;
 }
 function setup (){
-   colorMode(RGB)
-    createCanvas (backgroundObj.sizeX, backgroundObj.sizeY);
-    background (backgroundObj.color);
+    colorMode(RGB)
+    frameRate (30);
+ 
 }
+
 let backgroundObj = {sizeX:1280, sizeY: 720, color: "yellow"}
 let nave = {
     posX:640, 
@@ -38,6 +39,27 @@ let nave = {
     type: 0,
     },
 }
+let userUI = {
+    vida : "",
+    tiempoPartida: 0,
+    vidaX: "",
+    vidaY: "",
+    tiempoX: 500,
+    tiempoY: 500,
+
+}
+
+function drawUI (){
+    textSize(32);
+    fill(255);
+    stroke(80);
+    strokeWeight(40000);
+    if (frameCount%30 == 0){
+    userUI.tiempoPartida = frameCount/30 ; 
+
+ } 
+ 
+}
 function disparar (){
    nave.projectile.posY = nave.posY - nave.projectile.speed
     fill (255);
@@ -58,9 +80,11 @@ let playableArea = {
 }
 
 function drawPlayableArea (){
-    fill(playableArea.color)
-    rect (playableArea.posX, playableArea.posY, playableArea.sizeX, playableArea.sizeY)
-    noFill ()
+    createCanvas (backgroundObj.sizeX, backgroundObj.sizeY);
+    background (backgroundObj.color);
+    fill(playableArea.color);
+    rect (playableArea.posX, playableArea.posY, playableArea.sizeX, playableArea.sizeY);
+    noFill ();
 }
 
 function playerInput (){
@@ -95,7 +119,11 @@ function playerInput (){
 }
 
 function draw (){
+    drawUI ()
     drawPlayableArea()
     playerInput ()
-    image (nave.sprites.current, nave.posX, nave.posY, [nave.sizeX], [nave.sizeY])
+    image (nave.sprites.current, nave.posX, nave.posY, nave.sizeX, nave.sizeY)
+    document.getElementById("tiempo").innerHTML = userUI.tiempoPartida;
+    text (userUI.tiempoPartida, 640, 360)
+    console.log (userUI.tiempoPartida)
 }
