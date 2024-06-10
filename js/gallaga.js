@@ -45,6 +45,9 @@ function disparar (){
     noFill();
     nave.projectile.coolDown = nave.projectile.coolDown + 10
 }
+function moverDisparo (){
+    
+}
 let playableArea = {
     posX: 0, 
     posY:(backgroundObj.sizeY*0.30),
